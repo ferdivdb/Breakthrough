@@ -3,6 +3,11 @@
 	Breakthrough
 
 '''
+alphabet =['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 
+            'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 
+            'y', 'z']
+num = '0123456789'
+char = '<>'
 
 def main(n : int):
 	'''
@@ -17,6 +22,8 @@ def main(n : int):
 	'''
 	return
 
+
+
 def init_board(n : int):
 	'''
 
@@ -24,7 +31,14 @@ def init_board(n : int):
 		de taille n × n de départ, selon l’encodage spécifié dans la Section 1.4.
 
 	'''
-	
+	board=[[0]*n for i in range(n)]
+    for i in range(n):
+        for j in range(n):
+            if i==n-1 or i==n-2: board[i][j]=1 
+            if i==0 or i==1: board[i][j]=2
+    return board
+
+
 
 def print_board(board : List[List[int]]):
 	'''
@@ -33,7 +47,27 @@ def print_board(board : List[List[int]]):
 
 
 	'''
-	return
+	ligne = ""
+    horizontale = "  "
+    n = len(board[0])
+    for i in range(n):
+        for j in range(n):
+            horizontale = horizontale+"- "
+            if(board[i][j]==2): ligne = ligne + "B "
+            if (board[i][j] == 1): ligne = ligne + "W "
+            if (board[i][j] == 0): ligne = ligne + ". "
+        if i==0: print("  "+horizontale)
+        if n-i <= 9 : print(str(n-i)+"  "+"|"+" "+ligne+"|")
+        if n-i > 9 : print(str(n-i)+" "+"|"+" "+ligne+"|")
+        ligne=""
+        if i==n-1:
+            lettreaph = ""
+            for k in range(n): lettreaph = lettreaph + alphabet[k]+" "
+            print("    " + horizontale)
+            print("    " + lettreaph)
+
+        horizontale = ""
+	
 
 
 def winner(board : List[List[int]]):
@@ -44,7 +78,16 @@ def winner(board : List[List[int]]):
 		None si la partie n’est pas encore terminée.
 
 	'''
-	return
+	n=len(board[0])
+    for j in range(n):
+        if board[0][j]==1:
+            return 1
+        elif board[n-1][j]==2:
+            return 2
+        else:
+            return None
+	
+
 
 def is_in_board(n : int, pos : Tuple[int, int]):
 	'''
@@ -55,7 +98,12 @@ def is_in_board(n : int, pos : Tuple[int, int]):
 		ne l’est pas.
 
 	'''
-	return
+	if (pos[0]>=0 and pos[0]<n) and (pos[1]>=0 and pos[1]<n):
+        return True
+    else:
+        return False
+	
+
 
 def input_move():
 	'''
@@ -70,7 +118,78 @@ def input_move():
 		suivi d’une lettre minuscule, suivi enfin d’un ou deux chiffres.
 
 	'''
-	return
+	#     moove = input()
+#     i = 0
+#     if len(moove) in range(5, 8):
+#         for index in moove:
+#             flag = True if moove[i] in alphabet or moove[i] in num or moove[i] in char and moove[0] in alphabet and moove[3] in alphabet or moove[4] in alphabet and moove[2] in char or moove[3] in char and moove[1] in num[1:3]  else False
+#             if moove[2] in char: # a1<a1 or a1<a10
+#                 # if len(moove) == 6 : 
+#                 #     if moove[2] != '<': 
+#                 #         input_moove()
+#                 #     else:
+#                 #         flag == True
+#                 # else:
+#                 #     x = int(moove[1])
+#                 #     y = int(moove[4])
+#                 #     if x > y :
+#                 #         if moove[2] != '>': 
+#                 #             input_moove()
+#                 #         else:
+#                 #             flag == True
+#                 #     elif x == y:
+#                 #         input_moove()
+#                 #     else:
+#                 #         if moove[2] != '<': 
+#                 #             input_moove()
+#                 #         else:
+                            
+#             flag = True if moove[4] in num[1:3] and moove[5] in num[0:7] else False 
+#             if moove[3] in char:  # a10<a1 or a10<a10
+#                 flag = True if moove[2] in num[0:7] and moove[6] in num[0:7] and moove[1] in num[1:3] and moove[5] in num[1:3] and moove[4] in alphabet  else False
+#             else:
+#                 flag = False    
+#             #flag = True if   else False
+#             i+=1
+#         if flag == False : input_moove() 
+#         else : return True
+#     else:
+#         input_moove()
+    moove = input()
+    if len(moove) in range(5,8):
+        for index in moove:
+        if index in alphabet or index in num or index in char:
+                if moove[0] in alphabet and moove[1] in num:
+                    if len(moove) == 5:
+                        flag = True if moove[2] in char and moove[3] in alphabet and moove[4] in num else False
+                    elif len(moove) == 6:
+                        if moove[2] in char:
+                            if moove[2] == '<':
+                                if moove[4] in num[1:3]:
+                                    flag == True if moove[5] in num[0:7] else False
+                                else:
+                                    input_moove()
+                            else:
+                                input_moove()
+                        else:
+                            flag = True if moove[2] in num[0:7] else False
+                            if flag == True:
+                                
+                            else:
+                                input_moove()
+                    else:
+                        #
+                    if flag == False:
+                        input_moove()
+                else:
+                    input_moove()
+            else:
+                input_moove()
+    else:
+        input_moove()
+input_moove()
+	
+
 
 def extract_pos(n : int, str_pos : str):
 	'''
@@ -80,7 +199,18 @@ def extract_pos(n : int, str_pos : str):
 		Le paramètre n correspond à la taille du plateau.
 
 	'''
-	return
+	num = int(str_pos[1])
+    i = n - num
+    if str_pos[0] not in alphabet:
+        return None
+    else:
+        k=0
+        for lettre in alphabet:
+            k+=1
+            if str_pos[0]==lettre:
+                j=k-1
+                return (i,j)
+	
 
 
 def check_move(board : List[List[int]], player : int, str_move : str):
@@ -91,7 +221,20 @@ def check_move(board : List[List[int]], player : int, str_move : str):
 		renvoie True si le coup est conforme aux règles du jeu et renvoie False sinon.
 		
 	'''
-	return
+	 n=len(board[0])
+    if (str_move[1]<=n and str_move[1]>0) and (str_move[4]<=n and str_move[1]>0):
+        if player==1:
+            if (str[0]>=str[3] and str[1]<str[4]) or (str[0]<=str[3] and str[1]<str[4]):
+                return True
+            else:
+                return False
+        elif player==2:
+            if (str[0]>=str[3] and str[1]>str[4]) or (str[0]<=str[3] and str[1]>str[4]):
+                return True
+            else:
+                return False
+    else:
+        return False
 
 def play_move(board : List[List[int]], move : Tuple[Tuple[int, int], Tuple[int, int]], player : int):
 	'''
