@@ -1,6 +1,12 @@
 '''
 
-	Breakthrough
+Breakthrough
+Auteur : Ferdivdb
+Date : 15 novembre 2021
+Ceci est un dérivé du jeu d'échec (voir README.md)
+Entrée : Entrez une position sous le format "a26>g10"
+Résultat : Renvoie le tableau de jeu avec son avancée et 
+		   le score
 
 '''
 alphabet =['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 
@@ -9,7 +15,7 @@ alphabet =['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 num = '0123456789'
 char = '<>'
 
-def main(n : int):
+def __main__(n : int):
 	'''
 
 		La fonction principale du programme. Elle contient d’abord une phase 
